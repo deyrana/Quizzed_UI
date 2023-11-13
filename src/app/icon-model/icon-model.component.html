@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Select Avatar</h1>
+<div mat-dialog-content>
+    <div class="imgCls" *ngFor = "let img of icons">
+        <button (click) = "closeDailog(img.imagePath)"><img src = "{{img.imagePath}}"></button>
+    </div>
+</div>

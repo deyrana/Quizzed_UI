@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>{{data.content}}</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="navigateTo()" cdkFocusInitial *ngIf = "data.secBtn!=null">{{data.secBtn}}</button>
+  <button mat-button [mat-dialog-close]="true">{{data.primeBtn}}</button>
+</div>

@@ -1,0 +1,86 @@
+<div *ngIf="pageload" class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="!pageload" class="row bg">
+    <div class="col"></div>
+    <div class="col">
+      <form [formGroup]="RegForm" class="form-container" (ngSubmit)="submit()" (keydown)="EnterSubmit($event)">
+        <h1 class="headerFont">User Registration</h1>
+        <img [src]="profilePic" class="profilePicStyle" alt="image">
+        <button class="uploadButton" type="button" (click)="openIconDialog()"></button>
+        <br>
+  
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Name </mat-label>
+          <input matInput autofocus formControlName="name" required>
+          <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Username </mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error *ngIf="RegForm.controls.username.touched && RegForm.controls.username.invalid">
+            <span *ngIf="RegForm.controls.username.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Password </mat-label>
+          <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" placeholder="Enter Password"
+            required>
+          <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="RegForm.controls.password.touched && RegForm.controls.password.invalid">
+            <span *ngIf="RegForm.controls.password.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> Email </mat-label>
+          <input matInput formControlName="email">
+          <mat-hint>use like : demo@email.com</mat-hint>
+          <mat-error *ngIf="RegForm.controls.email.touched && RegForm.controls.email.invalid">
+            <span *ngIf="RegForm.controls.email.errors.email">Please enter a valid email id</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="form-field" color="primary" appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput formControlName="dob" [matDatepicker]="picker">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  
+        <!-- <mat-form-field class="form-field" appearance="outline" class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Genre selection">
+            <mat-chip *ngFor="let genre of selectedGenre" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(genre)">
+              {{genre}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New Genre..." #genreInput formControlName="genres" [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto">
+  
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+  
+          </mat-chip-list>
+        </mat-form-field> -->
+  
+        <button class="form-field" mat-raised-button color="primary" type="submit">SignUp</button>
+  
+        <br>
+        <a [routerLink]="['/login']">Already have an account? Login here</a>
+      </form>
+    </div>
+    <div class="col"></div>
+  </div>

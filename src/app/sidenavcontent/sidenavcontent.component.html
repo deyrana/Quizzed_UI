@@ -1,0 +1,21 @@
+<img [src]="imgUrl" mat-card-avatar class="nav-content image-style">
+<span class="nav-content">{{username}}</span>
+<mat-divider></mat-divider>
+<span class="nav-content">
+    <button (click)="navigateToHome()" class="navbar-btn">Home <mat-icon>home</mat-icon>
+    </button>
+</span>
+<span class="nav-content">
+    <button (click)="navigateToAccount()" class="navbar-btn">Account <mat-icon>account_circle</mat-icon>
+    </button>
+</span>
+<!-- <span class="nav-content">
+    <button (click)="navigateToBlogs()" class="navbar-btn">My Blogs <mat-icon>notes</mat-icon></button>
+</span> -->
+<!-- <span class="nav-content"><button (click)="navigateToFavBlogs()" class="navbar-btn">Favourite <mat-icon>star_border</mat-icon></button></span> -->
+<!-- <span class="nav-content"><button class="navbar-btn">ReadList <mat-icon>chrome_reader_mode</mat-icon>
+    </button></span> -->
+<!-- <span class="nav-content"><button class="navbar-btn">Liked Blogs <mat-icon>favorite_outline</mat-icon>
+    </button></span> -->
+<span class="nav-content"><button (click)="logout()" class="navbar-btn">Logout <mat-icon>logout</mat-icon>
+    </button></span>

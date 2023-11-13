@@ -1,0 +1,67 @@
+<mat-drawer-container class="example-container bg" [hasBackdrop]="backdrop">
+    <mat-drawer #drawer class="navbar-style" [mode]="navbarMode">
+        <app-sidenavcontent></app-sidenavcontent>
+    </mat-drawer>
+
+    <div *ngIf="pageload" class="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+
+    <mat-drawer-content>
+        <app-header [headerTitle]="headerTitle" (toggle)="drawer.toggle()"></app-header>
+
+        <mat-card class="box-design">
+            <mat-card-header>
+                <mat-card-title>
+                    Result
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <img [src]="imgUrl" class="image-style">
+                <mat-divider
+                    style="width: 95%; margin-left: 22px; margin-top: 10px; margin-bottom: 10px;"></mat-divider>
+
+                    <div class="row">
+                        <div class="col-5 label">Total Questions Played:</div>
+                        <div class="col-3 value">{{quesList.length}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 label">Number of correct answers:</div>
+                        <div class="col-3 value">{{correctAns}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 label">Number of incorrect answers:</div>
+                        <div class="col-3 value">{{incorrectAns}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 label">Number of questions unanswered:</div>
+                        <div class="col-3 value">{{unanswered}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 label">Accuracy:</div>
+                        <div class="col-3 value">{{accuracy.toFixed(2)}}%</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 label">Final Score:</div>
+                        <div class="col-3 value">{{finalScore}}</div>
+                    </div>
+
+            </mat-card-content>
+            <button mat-raised-button (click) = "goToExplaination()" color="accent" style="margin-left: 40%;">Answer explaination</button>
+        </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </mat-drawer-content>
+</mat-drawer-container>

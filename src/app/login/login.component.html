@@ -1,0 +1,41 @@
+<div *ngIf="pageload" class="spinner">
+    <mat-spinner mode="indeterminate"></mat-spinner>
+</div>
+
+<div class="row bg" *ngIf="!pageload">
+    <div class="col"></div>
+    <div class="col">
+        <p class="headerFont">Quizzed.com</p>
+        <form class="form-container" [formGroup]="LoginForm" (ngSubmit)="submit()" (keydown)="EnterSubmit($event)">
+            <p class="LoginHeader">Member Login</p>
+            <img [src]="profilePic" alt="image"><br>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Username </mat-label>
+                <input matInput formControlName="username" placeholder="Enter Username" required autofocus>
+                <mat-error *ngIf="LoginForm.controls.username.touched && LoginForm.controls.username.invalid">
+                    <span *ngIf="LoginForm.controls.username.errors.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Password </mat-label>
+                <input [type]="hide ? 'password' : 'text'" matInput formControlName="password"
+                    placeholder="Enter Password" required>
+                <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="LoginForm.controls.password.touched && LoginForm.controls.password.invalid">
+                    <span *ngIf="LoginForm.controls.password.errors.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+            <a [routerLink]="">Forgot Username/Password?</a>
+            <br><br>
+            <div class="form-field btn">
+                <button mat-raised-button color="primary" type="submit" [disabled] = "!LoginForm.valid">Login</button>
+            </div>
+            <br>
+            <p><a class="form-field" [routerLink]="['/signup']">Create an Account</a></p>
+        </form>
+    </div>
+    <div class="col"></div>
+</div>

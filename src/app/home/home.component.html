@@ -1,0 +1,9 @@
+<mat-drawer-container class="example-container bg" [hasBackdrop]="backdrop">
+    <mat-drawer #drawer class="navbar-style" [mode]="navbarMode">
+        <app-sidenavcontent></app-sidenavcontent>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <app-header [headerTitle]="headerTitle" (toggle)="drawer.toggle()"></app-header>
+    </mat-drawer-content>
+</mat-drawer-container>
