@@ -18,7 +18,7 @@
                     <mat-card-title class="header">Q{{i+1}}. {{q.ques}}</mat-card-title>
                 </mat-card-header>
                 <mat-card-content style="margin-top: 50px;">
-                    <img mat-card-image *ngIf="q.imagePath != null" [src]='q.imagePath' class="ques-image">
+                    <img mat-card-image *ngIf="quesImageUrls.has(q.qId)" [src]='quesImageUrls.get(q.qId)' class="ques-image">
                     <div style="margin-top: 50px;">
                         <button [ngClass]="getStyleOption(q.qId, 'A')">
                             <div class="row">
@@ -60,7 +60,7 @@
                         <div class="value">{{getCompleteAnswer(q.qId).ansExplaination}}</div>
                     </div>
                     <div class="row">
-                        <img mat-card-image *ngIf="getCompleteAnswer(q.qId).imagePath != null" [src]='getCompleteAnswer(q.qId).imagePath' class="ques-image">
+                        <img mat-card-image *ngIf="ansImageUrls.has(q.qId)" [src]='ansImageUrls.get(q.qId)' class="ques-image">
                     </div>
 
 

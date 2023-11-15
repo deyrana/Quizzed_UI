@@ -6,7 +6,111 @@
     <mat-drawer-content>
         <app-header [headerTitle]="headerTitle" (toggle)="drawer.toggle()"></app-header>
 
+        <div class="row bg">
+            <div class="col-1"></div>
 
+            <div class="col-10">
+                <form [formGroup]="AddQuesForm" class="form-container" (ngSubmit)="submit()"
+                    (keydown)="EnterSubmit($event)">
+                    <h1 class="headerFont">Add Question Form</h1>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Genre</mat-label>
+                        <mat-select formControlName="genre" required>
+                            <mat-option value="History">History</mat-option>
+                            <mat-option value="Geography">Geography</mat-option>
+                            <mat-option value="Culture">Culture</mat-option>
+                            <mat-option value="Entertainment">Entertainment</mat-option>
+                            <mat-option value="Sports">Sports</mat-option>
+                            <mat-option value="General Awareness">General Awareness</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Question </mat-label>
+                        <input matInput autofocus formControlName="ques" required placeholder="Type in the question">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Option A </mat-label>
+                        <input matInput formControlName="optionA" required placeholder="Type in the Option">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Option B </mat-label>
+                        <input matInput formControlName="optionB" required placeholder="Type in the Option">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Option C </mat-label>
+                        <input matInput formControlName="optionC" required placeholder="Type in the Option">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Option D </mat-label>
+                        <input matInput formControlName="optionD" required placeholder="Type in the Option">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                    <div>
+                        <label for="qfiles" class="qFile">Select Question Image</label>
+                        <input type="file" id="qfiles" style="padding-bottom: 20px;"
+                            (change)=onFileSelected($event) style="visibility:hidden;">
+                    </div>
+                    <div>
+                        <img class="qImage" *ngIf="qurl != null" [src]="qurl" width="250px">
+                    </div>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>Correct Answer</mat-label>
+                        <mat-select formControlName="correctOption" required>
+                            <!-- [(value)]="selected" -->
+                            <!-- <mat-option>None</mat-option> -->
+                            <mat-option value="A">Option A</mat-option>
+                            <mat-option value="B">Option B</mat-option>
+                            <mat-option value="C">Option C</mat-option>
+                            <mat-option value="D">Option D</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label> Explaination </mat-label>
+                        <input matInput formControlName="ansExplaination" placeholder="Type in the Explaination">
+                        <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
+                            <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
+                        </mat-error> -->
+                    </mat-form-field>
+
+                    <div>
+                        <label for="afiles" class="qFile">Select Answer Image</label>
+                        <input type="file" id="afiles"
+                            (change)=onAnsFileSelected($event) style="visibility:hidden;">
+                    </div>
+                    <div>
+                        <img class="qImage" *ngIf="aurl != null" [src]="aurl" width="250px">
+                    </div>
+
+                    <button class="form-field" mat-raised-button color="accent" type="submit">Submit</button>
+
+                </form>
+
+            </div>
+
+            <div class="col-1"></div>
+        </div>
 
 
 

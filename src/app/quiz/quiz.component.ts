@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user/user';
 import { Question } from '../question';
 import { QuizService } from './quiz.service';
+import { ImageService } from '../image.service';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quiz',
@@ -20,8 +22,9 @@ export class QuizComponent implements OnInit {
   showQues: boolean[];
   answers: Map<number, string>;
   totalQues: number;
+  imageUrls: Map<number, SafeUrl>;
 
-  constructor(private router: Router, private quizService: QuizService) { }
+  constructor(private router: Router, private quizService: QuizService, private imageService: ImageService) { }
 
   ngOnInit(): void {
 
@@ -33,11 +36,23 @@ export class QuizComponent implements OnInit {
         this.showQues = new Array<boolean>(this.questions.length);
         this.totalQues = this.questions.length;
         this.showQues[0] = true;
+        this.initializeImageUrl();
         this.initializeAnswerMap();
       }
     );
 
     this.pageload = false;
+  }
+
+  initializeImageUrl() {
+    this.imageUrls = new Map();
+    for (let i = 0; i < this.totalQues; i++) {
+      let qu: Question = this.questions[i];
+      if (qu.picByte != null) {
+        let url: SafeUrl = this.imageService.imageFile2URLconverter(qu.picByte, qu.imageName, qu.imageType);
+        this.imageUrls.set(qu.qId, url);
+      }
+    }
   }
 
   initializeAnswerMap() {

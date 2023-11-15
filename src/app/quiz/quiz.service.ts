@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Question } from '../question';
@@ -35,6 +35,10 @@ export class QuizService {
     let params = new HttpParams();
     params = params.append('ques', qIds.join(','));
     return this.http.get<Answer[]>(environment.restApi + "ans", { params: params });
+  }
+
+  saveQuestion(quesFormData : FormData): Observable<any> {
+    return this.http.post<any>(environment.restApi+"ques/addQues", quesFormData);
   }
 
 }

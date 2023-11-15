@@ -5,6 +5,9 @@ export class Answer {
     public correctOption: string;
     public ansExplaination: string;
     public imagePath: string;
+    public imageName: string;
+    public picByte: string;
+    public imageType: string;
     public createdTs: Date;
     public lastUpdatedTs: Date;
 

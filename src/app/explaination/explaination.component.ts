@@ -4,6 +4,8 @@ import { QuizService } from '../quiz/quiz.service';
 import { Answer } from '../answer';
 import { Question } from '../question';
 import { Observable, of } from 'rxjs';
+import { SafeUrl } from '@angular/platform-browser';
+import { ImageService } from '../image.service';
 
 @Component({
   selector: 'app-explaination',
@@ -23,20 +25,87 @@ export class ExplainationComponent implements OnInit {
   answerDbMap: Map<number, string>;
   questionsDb: Question[];
   showQues: boolean[];
+  quesImageUrls: Map<number, SafeUrl>;
+  ansImageUrls: Map<number, SafeUrl>;
 
   styleObjMap: Map<string, Map<number, any>>;
   // styleObjMapObs : Observable<Map<string, Map<number, any>>>;
 
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService, private imageService: ImageService) { }
 
   ngOnInit(): void {
-    // this.pageload = true;
     this.headerTitle = "Explaination";
     this.fetchAnsFromDB();
-    // this.pageload = false;
   }
 
-  getCompleteAnswer(qNo : number){
+  fetchAnsFromDB() {
+    this.quesList = new Array<number>();
+    this.answerDb = [];
+    this.questionsDb = [];
+
+    // Fetch Answers User has given
+    this.quizService.getAnswerMap().subscribe((value) => {
+      this.answersUser = value;
+      this.prepareQuesList();
+    });
+  }
+
+  prepareQuesList() {
+    // Create a list for the question Ids which user has played
+    this.answersUser.forEach((value: string, key: number) => {
+      this.quesList.push(key);
+    });
+    this.fetchDbQuestions();
+    this.fetchDbAnswers();
+  }
+
+  fetchDbQuestions() {
+    this.quizService.getQuestionsFromDb(this.quesList).subscribe((value) => {
+      this.questionsDb = value;
+      this.showQues = new Array<boolean>(this.questionsDb.length);
+      this.showQues[0] = true;
+      this.initializeQuesImageUrl();
+
+      
+    });
+  }
+
+  initializeQuesImageUrl() {
+    this.quesImageUrls = new Map();
+    let l = this.questionsDb.length;
+    for (let i = 0; i < l; i++) {
+      let qu: Question = this.questionsDb[i];
+      if (qu.imageName != null) {
+        let url: SafeUrl = this.imageService.imageFile2URLconverter(qu.picByte, qu.imageName, qu.imageType);
+        this.quesImageUrls.set(qu.qId, url);
+      }
+    }
+  }
+
+  fetchDbAnswers() {
+    // Fetch correct answers from DB
+    this.quizService.getAnswersFromDb(this.quesList).subscribe((value) => {
+      this.answerDb = value;
+      this.initializeAnsImageUrl();
+      this.initializeOptionStyling();
+    });
+    this.pageload = false;
+
+  }
+
+  initializeAnsImageUrl() {
+    this.ansImageUrls = new Map();
+    let l = this.answerDb.length;
+    for (let i = 0; i < l; i++) {
+      let ans: Answer = this.answerDb[i];
+      if (ans.imageName != null) {
+        let url: SafeUrl = this.imageService.imageFile2URLconverter(ans.picByte, ans.imageName, ans.imageType);
+        this.ansImageUrls.set(ans.qId, url);
+      }
+    }
+  }
+
+  getCompleteAnswer(qNo: number) {
     return this.answerDb.find(ans => ans.qId == qNo);
   }
 
@@ -143,49 +212,6 @@ export class ExplainationComponent implements OnInit {
 
   getStyleOption(qId: number, option: string) {
     return this.styleObjMap.get(option).get(qId);
-  }
-
-
-  fetchAnsFromDB() {
-    this.quesList = new Array<number>();
-    this.answerDb = [];
-    this.questionsDb = [];
-
-    // Fetch Answers User has given
-    this.quizService.getAnswerMap().subscribe((value) => {
-      this.pageload = true;
-      this.answersUser = value;
-      this.prepareQuesList();
-    });
-
-
-  }
-
-  prepareQuesList() {
-    // Create a list for the question Ids which user has played
-    this.answersUser.forEach((value: string, key: number) => {
-      this.quesList.push(key);
-    });
-    this.fetchDbQuestions();
-    this.fetchDbAnswers();
-  }
-
-  fetchDbQuestions() {
-    this.quizService.getQuestionsFromDb(this.quesList).subscribe((value) => {
-      this.questionsDb = value;
-      this.showQues = new Array<boolean>(this.questionsDb.length);
-      this.showQues[0] = true;
-    });
-  }
-
-  fetchDbAnswers() {
-    // Fetch correct answers from DB
-    this.quizService.getAnswersFromDb(this.quesList).subscribe((value) => {
-      this.answerDb = value;
-      this.initializeOptionStyling();
-    });
-    this.pageload = false;
-
   }
 
   nextQues(index) {

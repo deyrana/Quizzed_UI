@@ -17,7 +17,7 @@
                     <mat-card-title class="header">Q{{i+1}}. {{q.ques}}</mat-card-title>
                 </mat-card-header>
                 <mat-card-content style="margin-top: 50px;">
-                    <img mat-card-image *ngIf="q.imagePath != null" [src]='q.imagePath' class="ques-image">
+                    <img mat-card-image *ngIf="imageUrls.has(q.qId)" [src]='imageUrls.get(q.qId)' class="ques-image">
                     <div style="margin-top: 50px;">
                         <button class="options-btn" (click)="ansSelected(i, 'A', q.qId)">
                             <div class="row">

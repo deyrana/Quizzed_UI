@@ -25,18 +25,12 @@ export class RegistrationComponent implements OnInit {
   profileImage: File;
   pageload: boolean = false;
 
-  // // Values for Chip Autocomplete 
-  // @ViewChild('genreInput') genreInput: ElementRef<HTMLInputElement>;
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  // genre = [
-  // ];
-  // selectedGenre = [
-  // ];
-  filteredOptions: Observable<string[]>;
+  // visible = true;
+  // selectable = true;
+  // removable = true;
+  // addOnBlur = true;
+  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  // filteredOptions: Observable<string[]>;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -45,12 +39,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userService.getCodeMapByCat('Genre').subscribe((response) => {
-    //   // this.genre = response;
-    //   this.filteredOptions = this.RegForm.get('genres').valueChanges.pipe(
-    //     startWith(null),
-    //     map((gnr: string | null) => gnr ? this._filter(gnr) : this.genre.slice()));
-    // });
     this.RegForm = this.formBuilder.group({
       image: [null],
       name: [null, Validators.required],
@@ -58,7 +46,6 @@ export class RegistrationComponent implements OnInit {
       password: [null, Validators.required],
       email: [null, Validators.email],
       dob: [null]
-      // genres: [null]
     });
   }
 
@@ -76,45 +63,9 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-  //   return this.genre.filter(gnr => gnr.toLowerCase().indexOf(value.toLowerCase()) === 0);
-  // }
-
-  // add(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-  //   if (this.genre.indexOf(value.trim()) === -1) {
-  //     return;
-  //   }
-
-  //   if ((value || '').trim() && this.selectedGenre.indexOf(value.trim()) === -1) {
-  //     this.selectedGenre.push(value.trim());
-  //   }
-
-  //   if (input) {
-  //     input.value = '';
-  //   }
-  // }
-
-  // remove(genre: any): void {
-  //   const index = this.selectedGenre.indexOf(genre);
-
-  //   if (index >= 0) {
-  //     this.selectedGenre.splice(index, 1);
-  //   }
-  // }
-
-  // selected(event: MatAutocompleteSelectedEvent): void {
-  //   if (this.selectedGenre.indexOf(event.option.value.trim()) === -1) {
-  //     this.selectedGenre.push(event.option.value);
-  //   }
-  //   this.RegForm.get('genres').setValue(null);
-  //   this.genreInput.nativeElement.value = '';
-  // }
+  
 
   submit() {
-    // this.RegForm.get('genres').setValue(this.selectedGenre);
     if (this.RegForm.valid) {
       this.pageload = true;
       const formValues = this.setUpFormData();
@@ -143,16 +94,6 @@ export class RegistrationComponent implements OnInit {
       this.RegForm.get('password').value, this.RegForm.get('email').value, dob, this.profilePic);
     return user;
   }
-  // getValuesAsPipes(list: any): any {
-  //   let str: string = '';
-  //   for (let value of list) {
-  //     if (str.length > 0) {
-  //       str += ',';
-  //     }
-  //     str += value;
-  //   }
-  //   return str;
-  // }
 
   login() {
     localStorage.setItem('isLoggedIn', "true");

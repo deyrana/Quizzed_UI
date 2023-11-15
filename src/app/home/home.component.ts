@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user/user';
 import { Router } from '@angular/router';
+import { QuizService } from '../quiz/quiz.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +17,13 @@ export class HomeComponent implements OnInit {
   navbarMode: string;
   user: User;
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private quizService: QuizService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.headerTitle = "Home";
     this.backdrop = true;
     this.navbarMode = "over";
+
   }
 
 }
