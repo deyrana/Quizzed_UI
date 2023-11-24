@@ -7,8 +7,41 @@
         <app-header [headerTitle]="headerTitle" (toggle)="drawer.toggle()"></app-header>
 
 
-        
+        <mat-card class="form-container">
+            <mat-card-header>
+                <mat-card-title class="title">
+                    Welcome to Quizzed.com
+                </mat-card-title>
+            </mat-card-header>
 
+            <mat-card-content>
+                <h1 class="heading">Rules for playing the quiz!</h1>
+                <mat-list *ngFor="let rule of rules">
+                    <mat-list-item>
+                        <mat-icon matListItemIcon>radio_button_checked</mat-icon>
+                        <div matListItemTitle class="rule">{{rule}}</div>
+                    </mat-list-item>
+                </mat-list>
+
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-raised-button color="accent" (click)="navigateToPlayQuiz()">Play Quiz</button>
+                <button mat-raised-button color="accent" (click)="navigateToAddQues()">Add Question</button>
+            </mat-card-actions>
+        </mat-card>
+
+
+        <!-- <div matRipple class="form-container" [routerLink] = "quizUrl">
+            <h1>Play Quiz</h1>
+        </div>
+
+        <div matRipple class="form-container" [routerLink] = "addQuesUrl">
+            <h1>Add Question</h1>
+        </div> -->
+
+
+        
 
 
 

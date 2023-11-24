@@ -28,7 +28,8 @@
 
                     <mat-form-field class="form-field" appearance="outline">
                         <mat-label> Question </mat-label>
-                        <input matInput autofocus formControlName="ques" required placeholder="Type in the question">
+                        <!-- <input matInput autofocus formControlName="ques" required placeholder="Type in the question"> -->
+                        <textarea matInput formControlName="ques" placeholder="Type in the question" required></textarea>
                         <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
                             <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
                         </mat-error> -->
@@ -88,7 +89,8 @@
 
                     <mat-form-field class="form-field" appearance="outline">
                         <mat-label> Explaination </mat-label>
-                        <input matInput formControlName="ansExplaination" placeholder="Type in the Explaination">
+                        <!-- <input matInput formControlName="ansExplaination" placeholder="Type in the Explaination"> -->
+                        <textarea matInput formControlName="ansExplaination" placeholder="Type in the Explaination"></textarea>
                         <!-- <mat-error *ngIf="RegForm.controls.name.touched && RegForm.controls.name.invalid">
                             <span *ngIf="RegForm.controls.name.errors.required">This field is mandatory.</span>
                         </mat-error> -->

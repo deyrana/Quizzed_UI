@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
       const formValues = this.setUpFormData();
       this.loginService.validateCred(formValues).subscribe(
         (response) => {
-          console.log(response.status);
-          console.log(response.body);
           this.validUser = response.body;
           this.pageload = false;
           this.login();

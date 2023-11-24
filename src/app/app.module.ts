@@ -20,6 +20,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
 
 
 // Imports Components
@@ -35,6 +37,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ResultComponent } from './result/result.component';
 import { ExplainationComponent } from './explaination/explaination.component';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
+import { FormatTimePipe } from './format-time.pipe';
 
 
 @NgModule({
@@ -50,7 +53,8 @@ import { AddQuestionsComponent } from './add-questions/add-questions.component';
     QuizComponent,
     ResultComponent,
     ExplainationComponent,
-    AddQuestionsComponent
+    AddQuestionsComponent,
+    FormatTimePipe
   ],
   imports: [
     BrowserModule,
@@ -72,11 +76,14 @@ import { AddQuestionsComponent } from './add-questions/add-questions.component';
     MatDatepickerModule,
     MatDividerModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatRippleModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    DatePipe
+    DatePipe,
+    FormatTimePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -3,68 +3,85 @@
         <app-sidenavcontent></app-sidenavcontent>
     </mat-drawer>
 
-    <div *ngIf="pageload" class="spinner">
-        <mat-spinner></mat-spinner>
-    </div>
-
-
     <mat-drawer-content>
         <app-header [headerTitle]="headerTitle" (toggle)="drawer.toggle()"></app-header>
 
-        <div *ngFor="let q of questions; index as i">
-            <mat-card class="ques box-design" *ngIf="canShow(i)">
-                <mat-card-header>
-                    <mat-card-title class="header">Q{{i+1}}. {{q.ques}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content style="margin-top: 50px;">
-                    <img mat-card-image *ngIf="imageUrls.has(q.qId)" [src]='imageUrls.get(q.qId)' class="ques-image">
-                    <div style="margin-top: 50px;">
-                        <button class="options-btn" (click)="ansSelected(i, 'A', q.qId)">
-                            <div class="row">
-                                <div class="col-1" style="text-align: left;">A:</div>
-                                <div class="col" style="text-align: center;">{{q.optionA}}</div>
-                            </div>
-                        </button>
-                        <button class="options-btn" (click)="ansSelected(i, 'B', q.qId)">
-                            <div class="row">
-                                <div class="col-1" style="text-align: left;">B:</div>
-                                <div class="col" style="text-align: center;">{{q.optionB}}</div>
-                            </div>
-                        </button>
-                        <button class="options-btn" (click)="ansSelected(i, 'C', q.qId)">
-                            <div class="row">
-                                <div class="col-1" style="text-align: left;">C:</div>
-                                <div class="col" style="text-align: center;">{{q.optionC}}</div>
-                            </div>
-                        </button>
-                        <button class="options-btn" (click)="ansSelected(i, 'D', q.qId)">
-                            <div class="row">
-                                <div class="col-1" style="text-align: left;">D:</div>
-                                <div class="col" style="text-align: center;">{{q.optionD}}</div>
-                            </div>
-                        </button>
+        <div *ngIf="pageload" class="spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+
+
+        <div *ngIf="!pageload">
+            <div class="row">
+                <div class="col-5"></div>
+                <div class="col-5"></div>
+                <div class="col-2">
+                    <div class="timer">
+                        <div>{{counter | formatTime}}</div>
+                        <div style="font-size: 0.7em !important; font-weight: 400;">min <span
+                                style="margin-left: 12px;">sec</span></div>
                     </div>
-                </mat-card-content>
-
-                <!-- <mat-card-actions class="action-btn"> -->
-                <div class="action-btn">
-
-                    <button mat-fab color="accent" (click)="prevQues(i)" class="ques-nav-btn"
-                        [disabled]="disablePrev(i)">
-                        <mat-icon>keyboard_arrow_left</mat-icon>
-                    </button>
-
-                    <button mat-fab color="accent" (click)="nextQues(i)" class="ques-nav-btn"
-                        [disabled]="disableNext(i)">
-                        <mat-icon>keyboard_arrow_right</mat-icon>
-                    </button>
-
-                    <button mat-raised-button color="accent" class="submit-btn" (click)="submitQuiz()">Submit</button>
-
                 </div>
-                <!-- </mat-card-actions> -->
+            </div>
 
-            </mat-card>
+
+            <div *ngFor="let q of questions; index as i">
+                <mat-card class="ques box-design" *ngIf="canShow(i)">
+                    <mat-card-header>
+                        <mat-card-title class="header">Q{{i+1}}. {{q.ques}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content style="margin-top: 50px;">
+                        <img mat-card-image *ngIf="imageUrls.has(q.qId)" [src]='imageUrls.get(q.qId)'
+                            class="ques-image">
+                        <div style="margin-top: 50px;">
+                            <button class="options-btn" (click)="ansSelected(i, 'A', q.qId)">
+                                <div class="row">
+                                    <div class="col-1" style="text-align: left;">A:</div>
+                                    <div class="col" style="text-align: center;">{{q.optionA}}</div>
+                                </div>
+                            </button>
+                            <button class="options-btn" (click)="ansSelected(i, 'B', q.qId)">
+                                <div class="row">
+                                    <div class="col-1" style="text-align: left;">B:</div>
+                                    <div class="col" style="text-align: center;">{{q.optionB}}</div>
+                                </div>
+                            </button>
+                            <button class="options-btn" (click)="ansSelected(i, 'C', q.qId)">
+                                <div class="row">
+                                    <div class="col-1" style="text-align: left;">C:</div>
+                                    <div class="col" style="text-align: center;">{{q.optionC}}</div>
+                                </div>
+                            </button>
+                            <button class="options-btn" (click)="ansSelected(i, 'D', q.qId)">
+                                <div class="row">
+                                    <div class="col-1" style="text-align: left;">D:</div>
+                                    <div class="col" style="text-align: center;">{{q.optionD}}</div>
+                                </div>
+                            </button>
+                        </div>
+                    </mat-card-content>
+
+                    <!-- <mat-card-actions class="action-btn"> -->
+                    <div class="action-btn">
+
+                        <button mat-fab color="accent" (click)="prevQues(i)" class="ques-nav-btn"
+                            [disabled]="disablePrev(i)">
+                            <mat-icon>keyboard_arrow_left</mat-icon>
+                        </button>
+
+                        <button mat-fab color="accent" (click)="nextQues(i)" class="ques-nav-btn"
+                            [disabled]="disableNext(i)">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+
+                        <button mat-raised-button color="accent" class="submit-btn"
+                            (click)="submitQuiz()">Submit</button>
+
+                    </div>
+                    <!-- </mat-card-actions> -->
+
+                </mat-card>
+            </div>
         </div>
 
     </mat-drawer-content>

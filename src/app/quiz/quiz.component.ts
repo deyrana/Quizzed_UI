@@ -5,6 +5,7 @@ import { Question } from '../question';
 import { QuizService } from './quiz.service';
 import { ImageService } from '../image.service';
 import { SafeUrl } from '@angular/platform-browser';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-quiz',
@@ -17,12 +18,17 @@ export class QuizComponent implements OnInit {
   backdrop: boolean;
   navbarMode: string;
   user: User;
-  pageload: boolean;
+  pageload: boolean = false;
   questions: Question[];
   showQues: boolean[];
   answers: Map<number, string>;
   totalQues: number;
   imageUrls: Map<number, SafeUrl>;
+
+  //timer
+  countDown: Subscription;
+  counter;
+  tick;
 
   constructor(private router: Router, private quizService: QuizService, private imageService: ImageService) { }
 
@@ -30,6 +36,7 @@ export class QuizComponent implements OnInit {
 
     this.pageload = true;
     this.headerTitle = "Play Quiz";
+
     this.quizService.fetchAllQuestions().subscribe(
       response => {
         this.questions = response;
@@ -38,10 +45,26 @@ export class QuizComponent implements OnInit {
         this.showQues[0] = true;
         this.initializeImageUrl();
         this.initializeAnswerMap();
+        this.pageload = false;
+        this.initializeTimer();
       }
     );
 
-    this.pageload = false;
+  }
+  initializeTimer() {
+    this.counter = 30;
+    this.tick = 1000;
+
+    this.countDown = timer(0, this.tick).subscribe(() => {
+      if (this.counter == 0) {
+        this.submitQuiz();
+      }
+      --this.counter;
+    });
+  }
+
+  ngOnDestroy() {
+    this.countDown = null;
   }
 
   initializeImageUrl() {

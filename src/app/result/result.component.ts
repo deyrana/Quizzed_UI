@@ -27,7 +27,7 @@ export class ResultComponent implements OnInit {
   correctAns: number;
   incorrectAns: number;
   unanswered: number;
-  accuracy: number;
+  accuracy: string;
   finalScore: number;
 
   constructor(private actRoute: ActivatedRoute, private router: Router, private quizService: QuizService, private userService: UserService) { }
@@ -109,7 +109,7 @@ export class ResultComponent implements OnInit {
       }
     });
 
-    this.accuracy = (this.correctAns * 100) / (this.correctAns + this.incorrectAns);
+    this.accuracy = ((this.correctAns * 100) / (this.correctAns + this.incorrectAns)).toFixed(2);
     this.finalScore = (this.correctAns * 300) - (this.incorrectAns * 100);
   }
 

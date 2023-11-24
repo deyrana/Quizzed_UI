@@ -3,7 +3,6 @@ import { User } from '../user/user';
 import { QuizService } from '../quiz/quiz.service';
 import { Answer } from '../answer';
 import { Question } from '../question';
-import { Observable, of } from 'rxjs';
 import { SafeUrl } from '@angular/platform-browser';
 import { ImageService } from '../image.service';
 
@@ -19,6 +18,7 @@ export class ExplainationComponent implements OnInit {
   navbarMode: string;
   user: User;
   pageload: boolean = false;
+
   quesList: number[];
   answersUser: Map<number, string>;
   answerDb: Answer[];
@@ -29,13 +29,14 @@ export class ExplainationComponent implements OnInit {
   ansImageUrls: Map<number, SafeUrl>;
 
   styleObjMap: Map<string, Map<number, any>>;
-  // styleObjMapObs : Observable<Map<string, Map<number, any>>>;
 
   constructor(private quizService: QuizService, private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.pageload = true;
     this.headerTitle = "Explaination";
     this.fetchAnsFromDB();
+    
   }
 
   fetchAnsFromDB() {
@@ -56,7 +57,6 @@ export class ExplainationComponent implements OnInit {
       this.quesList.push(key);
     });
     this.fetchDbQuestions();
-    this.fetchDbAnswers();
   }
 
   fetchDbQuestions() {
@@ -64,9 +64,8 @@ export class ExplainationComponent implements OnInit {
       this.questionsDb = value;
       this.showQues = new Array<boolean>(this.questionsDb.length);
       this.showQues[0] = true;
-      this.initializeQuesImageUrl();
-
-      
+      this.initializeQuesImageUrl();  
+      this.fetchDbAnswers();  
     });
   }
 
@@ -88,9 +87,8 @@ export class ExplainationComponent implements OnInit {
       this.answerDb = value;
       this.initializeAnsImageUrl();
       this.initializeOptionStyling();
+      this.pageload = false;
     });
-    this.pageload = false;
-
   }
 
   initializeAnsImageUrl() {
@@ -183,10 +181,6 @@ export class ExplainationComponent implements OnInit {
         }
       }
     });
-
-    console.log(this.answersUser);
-    console.log(this.answerDbMap);
-    console.log(this.styleObjMap);
 
   }
 

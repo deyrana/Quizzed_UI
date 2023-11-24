@@ -27,8 +27,8 @@ export class QuizService {
 
   getQuestionsFromDb(qIds: number[]): Observable<Question[]> {
     let params = new HttpParams();
-    params = params.append('ques', qIds.join(','));
-    return this.http.get<Question[]>(environment.restApi + "ques", { params: params });
+    params = params.append('ids', qIds.join(','));
+    return this.http.get<Question[]>(environment.restApi + "ques/qids", { params: params });
   }
 
   getAnswersFromDb(qIds: number[]): Observable<Answer[]> {
