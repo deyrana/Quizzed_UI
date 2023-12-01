@@ -11,10 +11,18 @@ import { Answer } from '../answer';
 export class QuizService {
 
   private message = new BehaviorSubject(new Map<number, string>());
+  private quizConfig = new BehaviorSubject(new Object);
   constructor(private http: HttpClient) { }
 
   fetchAllQuestions(): Observable<Question[]> {
     return this.http.get<Question[]>(environment.restApi + 'ques');
+  }
+
+  fetchQuestionsConfig(genre: string, totalQues: string){
+    let params = new HttpParams();
+    params = params.append('genre', genre);
+    params = params.append('totalQues', totalQues);
+    return this.http.get<Question[]>(environment.restApi + 'ques/config', { params: params });
   }
 
   setAnswersMap(answer: Map<number, string>) {
@@ -23,6 +31,14 @@ export class QuizService {
 
   getAnswerMap(): Observable<Map<number, string>> {
     return this.message.asObservable();
+  }
+
+  setQuizConfig(config: any){
+    this.quizConfig.next(config);
+  }
+
+  getQuizConfig(): Observable<any>{
+    return this.quizConfig.asObservable();
   }
 
   getQuestionsFromDb(qIds: number[]): Observable<Question[]> {

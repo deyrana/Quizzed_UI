@@ -24,6 +24,7 @@ export class QuizComponent implements OnInit {
   answers: Map<number, string>;
   totalQues: number;
   imageUrls: Map<number, SafeUrl>;
+  quizConfig: any;
 
   //timer
   countDown: Subscription;
@@ -37,7 +38,11 @@ export class QuizComponent implements OnInit {
     this.pageload = true;
     this.headerTitle = "Play Quiz";
 
-    this.quizService.fetchAllQuestions().subscribe(
+    this.quizService.getQuizConfig().subscribe(val => {
+      this.quizConfig = val;
+    })
+
+    this.quizService.fetchQuestionsConfig(this.quizConfig.genre, this.quizConfig.totalQues).subscribe(
       response => {
         this.questions = response;
         this.showQues = new Array<boolean>(this.questions.length);
@@ -50,9 +55,22 @@ export class QuizComponent implements OnInit {
       }
     );
 
+    // this.quizService.fetchAllQuestions().subscribe(
+    //   response => {
+    //     this.questions = response;
+    //     this.showQues = new Array<boolean>(this.questions.length);
+    //     this.totalQues = this.questions.length;
+    //     this.showQues[0] = true;
+    //     this.initializeImageUrl();
+    //     this.initializeAnswerMap();
+    //     this.pageload = false;
+    //     this.initializeTimer();
+    //   }
+    // );
+
   }
   initializeTimer() {
-    this.counter = 30;
+    this.counter = 30*this.totalQues;
     this.tick = 1000;
 
     this.countDown = timer(0, this.tick).subscribe(() => {
@@ -119,6 +137,10 @@ export class QuizComponent implements OnInit {
   }
 
   submitQuiz() {
+    this.countDown.unsubscribe();
+    this.countDown = null;
+    this.counter = null;
+    this.tick = null;
     this.quizService.setAnswersMap(this.answers);
     this.router.navigate(['/result']);
   }

@@ -38,6 +38,7 @@ import { ResultComponent } from './result/result.component';
 import { ExplainationComponent } from './explaination/explaination.component';
 import { AddQuestionsComponent } from './add-questions/add-questions.component';
 import { FormatTimePipe } from './format-time.pipe';
+import { QuizConfigDialogComponent } from './quiz-config-dialog/quiz-config-dialog.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { FormatTimePipe } from './format-time.pipe';
     ResultComponent,
     ExplainationComponent,
     AddQuestionsComponent,
-    FormatTimePipe
+    FormatTimePipe,
+    QuizConfigDialogComponent
   ],
   imports: [
     BrowserModule,

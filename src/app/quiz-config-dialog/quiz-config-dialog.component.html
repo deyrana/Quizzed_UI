@@ -1,0 +1,30 @@
+<form [formGroup]="quizForm" class="form-container" (ngSubmit)="submit()" (keydown)="EnterSubmit($event)">
+
+    <h1>Select Quiz Type</h1>
+
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre" required>
+            <mat-option value="General Awareness">General Awareness</mat-option>
+            <mat-option value="History">History</mat-option>
+            <mat-option value="Geography">Geography</mat-option>
+            <mat-option value="Culture">Culture</mat-option>
+            <mat-option value="Entertainment">Entertainment</mat-option>
+            <mat-option value="Sports">Sports</mat-option>
+            <mat-option value="*">Miscellaneous</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Total Questions</mat-label>
+        <mat-select formControlName="totalQues" required>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button class="form-field" mat-raised-button color="accent" type="submit">Submit</button>
+
+</form>

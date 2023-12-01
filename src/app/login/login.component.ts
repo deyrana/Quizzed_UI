@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
       username: [null, Validators.required],
       password: [null, Validators.required],
     });
+
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('token');
   }
 
   submit() {
@@ -66,7 +69,7 @@ export class LoginComponent implements OnInit {
       let content: string = "Username/Password entered is incorrect";
       let url: string = null;
       let primeBtn: string = "Ok";
-      let secBtn: string =null;
+      let secBtn: string = null;
       this.openDialog(title, content, url, primeBtn, secBtn);
     }
   }
@@ -93,8 +96,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  EnterSubmit(event){
-    if(event.keyCode === 13){
+  EnterSubmit(event) {
+    if (event.keyCode === 13) {
       this.submit();
     }
   }

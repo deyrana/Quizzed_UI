@@ -25,14 +25,6 @@ export class RegistrationComponent implements OnInit {
   profileImage: File;
   pageload: boolean = false;
 
-  // visible = true;
-  // selectable = true;
-  // removable = true;
-  // addOnBlur = true;
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  // filteredOptions: Observable<string[]>;
-
-
   constructor(private formBuilder: FormBuilder,
     private userService: UserService, private datepipe: DatePipe,
     private router: Router, private dialog: MatDialog) {
