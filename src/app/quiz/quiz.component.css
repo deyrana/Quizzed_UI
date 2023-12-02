@@ -66,13 +66,30 @@ mat-drawer-content {
 .options-btn {
     width: 46%;
     display: inline;
-    text-align: left;
     margin-left: 2%;
     margin-right: 2%;
     margin-top: 1%;
     margin-bottom: 1%;
     height: 50px;
     background-color: rgb(255, 255, 57);
+    font-size: 140%;
+
+    /*Animation*/
+    border-radius: 15px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+}
+
+.options-btn-selected {
+    width: 46%;
+    display: inline;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    height: 50px;
+    /* background-color: rgb(255, 255, 57); */
+    background-color: teal;
     font-size: 140%;
 
     /*Animation*/

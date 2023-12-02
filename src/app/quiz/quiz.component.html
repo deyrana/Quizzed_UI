@@ -34,30 +34,67 @@
                         <img mat-card-image *ngIf="imageUrls.has(q.qId)" [src]='imageUrls.get(q.qId)'
                             class="ques-image">
                         <div style="margin-top: 50px;">
-                            <button class="options-btn" (click)="ansSelected(i, 'A', q.qId)">
+                            <button *ngIf="answers.get(q.qId) == 'A'; else eba" class="options-btn-selected"
+                                (click)="ansSelected(i, 'A', q.qId)">
                                 <div class="row">
                                     <div class="col-1" style="text-align: left;">A:</div>
                                     <div class="col" style="text-align: center;">{{q.optionA}}</div>
                                 </div>
                             </button>
-                            <button class="options-btn" (click)="ansSelected(i, 'B', q.qId)">
+                            <ng-template #eba>
+                                <button class="options-btn" (click)="ansSelected(i, 'A', q.qId)">
+                                    <div class="row">
+                                        <div class="col-1" style="text-align: left;">A:</div>
+                                        <div class="col" style="text-align: center;">{{q.optionA}}</div>
+                                    </div>
+                                </button>
+                            </ng-template>
+
+                            <button *ngIf="answers.get(q.qId) == 'B'; else ebb" class="options-btn-selected" (click)="ansSelected(i, 'B', q.qId)">
                                 <div class="row">
                                     <div class="col-1" style="text-align: left;">B:</div>
                                     <div class="col" style="text-align: center;">{{q.optionB}}</div>
                                 </div>
                             </button>
-                            <button class="options-btn" (click)="ansSelected(i, 'C', q.qId)">
+                            <ng-template #ebb>
+                                <button class="options-btn" (click)="ansSelected(i, 'B', q.qId)">
+                                    <div class="row">
+                                        <div class="col-1" style="text-align: left;">B:</div>
+                                        <div class="col" style="text-align: center;">{{q.optionB}}</div>
+                                    </div>
+                                </button>
+                            </ng-template>
+
+
+                            <button *ngIf="answers.get(q.qId) == 'C'; else ebc" class="options-btn-selected" (click)="ansSelected(i, 'C', q.qId)">
                                 <div class="row">
                                     <div class="col-1" style="text-align: left;">C:</div>
                                     <div class="col" style="text-align: center;">{{q.optionC}}</div>
                                 </div>
                             </button>
-                            <button class="options-btn" (click)="ansSelected(i, 'D', q.qId)">
+                            <ng-template #ebc>
+                                <button class="options-btn" (click)="ansSelected(i, 'C', q.qId)">
+                                    <div class="row">
+                                        <div class="col-1" style="text-align: left;">C:</div>
+                                        <div class="col" style="text-align: center;">{{q.optionC}}</div>
+                                    </div>
+                                </button>
+                            </ng-template>
+
+                            <button *ngIf="answers.get(q.qId) == 'D'; else ebd" class="options-btn-selected" (click)="ansSelected(i, 'D', q.qId)">
                                 <div class="row">
                                     <div class="col-1" style="text-align: left;">D:</div>
                                     <div class="col" style="text-align: center;">{{q.optionD}}</div>
                                 </div>
                             </button>
+                            <ng-template #ebd>
+                                <button class="options-btn" (click)="ansSelected(i, 'D', q.qId)">
+                                    <div class="row">
+                                        <div class="col-1" style="text-align: left;">D:</div>
+                                        <div class="col" style="text-align: center;">{{q.optionD}}</div>
+                                    </div>
+                                </button>
+                            </ng-template>
                         </div>
                     </mat-card-content>
 
